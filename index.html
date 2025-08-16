@@ -1,0 +1,839 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Study With Mice</title>
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap" rel="stylesheet">
+  <style>
+    html,body {
+  padding: 20px;
+  margin: auto;
+  width: 100%;
+  max-width: 800px;
+  border-radius: 12px;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  position: relative;
+  font-family: 'Patrick Hand', cursive;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  overflow-x: hidden;
+}
+
+
+     
+	h1, h3 {
+  font-family:  "Georgia", serif;
+     }
+
+	 
+    h1 {
+      font-size: 2.5rem;
+      color: #244457;
+    }
+
+    h3 {
+      font-size: 1.5rem;
+    }
+    
+    p {
+      font-size: 1.3rem;
+      line-height: 1.6;
+    }
+
+    a {
+      color: #4a5c6a;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    a:hover {
+      color: #dcdaf0;
+      text-decoration: underline;
+    }
+   
+    .dark-theme {
+      background-color: #05031a;
+      color: #e0e0e0;
+    }
+
+    .dark-theme h1,
+    .dark-theme h3,
+	.dark-theme p,
+    .dark-theme a {
+      color: #e0e0e0;
+    }
+
+    .dark-theme a:hover {
+      color: #90caf9;
+	}
+
+    .dark-theme .btn {
+      background-color: #4c4c75;
+      color: #f0e9e9;
+    }
+
+    .dark-theme .btn:hover {
+      background-color: #f09e2b;
+    }
+
+    .dark-theme footer {
+      color: #aaa;
+    }
+
+    #darkModeBtn {
+      background-color: #ffca80;
+      color:#f0e9e9 ;
+      border-color: #f7f0e6;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    #darkModeBtn:hover {
+      background-color: #f09e2b;
+    }
+
+    .decor {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #a3b3cc;
+      margin-bottom: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #687dab;
+      color: #fff;
+      border-radius: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+   .btn:hover {
+  background-color: #3e5c72;  /* color when the cursor hovers over the button */
+}
+
+
+    footer {
+      margin-top: 40px;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #888;
+    }
+
+    .wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 200%;
+      height: 70px;
+      background: linear-gradient(
+	  to right, 
+	  #908fdb 0%, 
+	  #908fdb 25%,
+	  transparent 50%,
+	  #908fdb 75%,
+	  transparent 100%
+	 );
+      background-size: 200% 100%;
+      animation: wave-animation 5s infinite linear;
+      opacity: 0.5;
+      z-index: -1;
+    }
+	
+	.svg-wave {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+    }
+
+    @keyframes wave-animation {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-50%); }
+    }
+.square-button {
+  width: 80px;
+  height: 80px;
+  background-color: #f2ddfc;
+  color: #020112;
+  border: none;
+  border-radius: 12px; /* just slightly rounded */
+  font-size: 2rem;
+  cursor: pointer;
+  margin: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.square-button:hover {
+  background-color: #a9a7ec;
+  box-shadow: 0 0 10px #d6c8ff;
+  transform: scale(1.05);
+}
+
+
+img.cozy-characters {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.guide-text {
+  color: #333; /* dark text always */
+}
+.dark-theme .guide-text {
+  color: #333; /* still dark text, so it shows up on light box */
+}
+
+
+#timer-box {
+  background: #fdf8ff;
+  padding: 15px 25px;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  max-width: 300px;
+  margin: 0 auto 20px auto;
+}
+.dark-theme #timer-box {
+  background: #2b2a4b;
+  color: #f0f0f0;
+}
+
+#froggy {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  width: 80px;
+  height: auto;
+  cursor: pointer;
+  z-index: 999;
+  transition: transform 0.3s ease, opacity 0.4s ease, bottom 0.5s ease;
+  animation: froggyBounce 3s ease-in-out infinite;
+}
+
+#froggy:hover {
+  transform: scale(1.1) rotate(-2deg);
+}
+
+.dark-theme #froggy {
+  opacity: 1;
+  filter: drop-shadow(0 0 6px #abffbf);
+}
+
+:not(.dark-theme) #froggy {
+  opacity: 0.5;
+  filter: grayscale(40%);
+}
+
+@keyframes froggyBounce {
+  0%, 100% { bottom: 20px; }
+  50% { bottom: 25px; }
+}
+
+#reviewBox {
+  background-color: #fffbe7;
+  padding: 1rem;
+  margin: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+#reviewInput {
+  width: 100%;
+  height: 100px;
+  border-radius: 8px;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  margin-bottom: 1rem;
+}
+
+#reviewBox button {
+  background-color: #fca3cc;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+
+.dark-theme textarea,
+.dark-theme #reviewBox,
+.dark-theme #reviewBox h3 {
+  color: #f3f3f3; /* brighter for readability */
+  background-color: #2a2a4b; /* soft nightbox */
+}
+
+.dark-theme textarea::placeholder {
+  color: #ccc; /* improve placeholder contrast */
+}
+.dark-theme #reviewBox button {
+  background-color: #ff79b0;
+  color: #fff;
+}
+
+#reviewList div {
+  background-color: #fef7f1;
+  border-left: 4px solid #ff9ab5;
+  padding: 8px 12px;
+  margin: 8px 0;
+  border-radius: 6px;
+  font-family: 'Comic Neue', cursive;
+  color: #444;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+}
+
+@keyframes popIn {
+  from {
+    transform: scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.review-bubble {
+  padding: 10px 14px;
+  margin: 10px 0;
+  border-radius: 20px;
+  background: #ffeef2;
+  color: #333;
+  max-width: 90%;
+  font-family: 'Comic Sans MS', cursive;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+
+	  
+</style>
+
+ <!-- jQuery (needed for jQuery plugins) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- ✅ Core wavify library (this one is missing in your code) -->
+<script src="https://cdn.jsdelivr.net/gh/peacepostman/wavify@master/wavify.js"></script>
+
+<!-- ✅ jQuery wrapper plugin (this is fine, just needs to come after wavify.js) -->
+<script src="https://cdn.jsdelivr.net/gh/peacepostman/wavify@master/jquery.wavify.js"></script>
+
+<!-- Optional: GSAP (only needed if you're animating other things with it) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+
+</head>
+<body>
+
+  <div class="decor">⊹₊ ˚‧︵‿₊୨୧₊‿︵‧ ˚ ₊⊹</div>	
+  <img id="froggy"
+     src="froggy.png"
+     alt="Floating Froggy Update Icon"
+     style="
+       position: fixed;
+       bottom: 40px;
+       right: 20px;
+       width: 90px;
+       height: auto;
+       cursor: pointer;
+       z-index: 998;
+       filter: drop-shadow(0 0 6px #baffc9) brightness(1.1);
+     "
+ />
+  <button id="darkModeBtn" title="Lights Off?">🔮</button>
+  <audio id= "darkmode" src="click.mp3" preload="auto"></audio>
+
+  <h1>Hey there! I'm your study-buddy!</h1>
+  <button id= "guidebtn" title="Need Help?">Small Guide📑</button>
+  <audio id="guideme" src="click.mp3" preload="auto"></audio>
+  
+  
+<h3>🌺 🌕⋆౨ৎ˚⟡˖ ࣪🌷</h3>
+
+<div style="text-align: center; margin: 20px 0;">
+  <img src="croprat.png" 
+       alt="Cute cozy characters" 
+	   class= "cozy-characters"
+       style="width: 800px; max-width: 80%; border-radius: 16px;" 
+       id="ratme" />
+</div>
+
+ 
+  <!-- Buttons -->
+  <button onclick="document.getElementById('sparklesound').play()"> Need Little Music? </button>
+  <button id="starBtn" class="square-button" aria-label="Play Study Music">▶️</button>
+  <button id="pauseBtn" class="square-button" aria-label="Pause Music">⏸️</button>
+<button id="stopBtn" class="square-button" aria-label="Stop Music">⏹️</button>
+<audio id="sparklesound" src="grr.mp3" preload="auto"></audio>
+
+<div id="timer-box" style="text-align:center; margin: 20px auto;">
+  <h3 style="margin-bottom: 10px;">⏳⌛⏳ Focus For?</h3>
+
+  <label for="custom-minutes" style="font-size: 1.1rem;">Set Minutes:</label><br>
+  <input type="number" id="custom-minutes" min="1" max="180" value="25"
+         style="margin: 10px auto; padding: 6px 12px; font-size: 1rem; border-radius: 8px; border: 1px solid #ccc; text-align:center;"><br>
+
+  <div id="timer-display" style="font-size: 2.2rem; margin: 10px 0;">25:00</div>
+
+  <button id="start-timer" class="square-button">▶</button>
+  <button id="pause-timer" class="square-button">❚❚</button>
+  <button id="reset-timer" class="square-button" style= font-size:2.5rem;>↺</button>
+
+  <audio id="finish-sound" src="done.mp3" preload="auto"></audio>
+</div>
+
+
+<section id="reviewBox">
+  <h3>Leave your thoughts here! (˶ˆᗜˆ˵)🌱</h3>
+  
+  <textarea id="reviewInput" placeholder="Did you enjoy exploring my page? .🌷." maxlength="200"></textarea>
+  
+  <small id="charCount" style="display:block; text-align:right; color:#888;">0 / 200</small>
+
+ <div 
+  class="g-recaptcha" 
+  data-sitekey="6LeaJ5orAAAAAAr5P2337IYgcQxMu_hY8z2sIN1Y">
+</div>
+<button id="googleSignInBtn">Sign in with Google</button>
+<button id="signOutBtn" style="display:none;">Sign Out</button>
+
+<script type="module">
+  // Assuming you imported Firebase and initialized above
+  const googleSignInBtn = document.getElementById('googleSignInBtn');
+  const signOutBtn = document.getElementById('signOutBtn');
+
+  googleSignInBtn.addEventListener('click', signInWithGoogle);
+  signOutBtn.addEventListener('click', () => {
+    signOutUser();
+    // update UI accordingly, e.g., hide signOutBtn, show signInBtn
+  });
+
+  // Optional: Detect auth state changes to update UI
+  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+  onAuthStateChanged(auth, user => {
+    if (user) {
+      googleSignInBtn.style.display = 'none';
+      signOutBtn.style.display = 'inline-block';
+      // Enable review posting, display user info, etc.
+    } else {
+      googleSignInBtn.style.display = 'inline-block';
+      signOutBtn.style.display = 'none';
+      // Disable review posting if needed
+    }
+  });
+</script>
+
+
+<button id="submitReview">Submit</button>
+
+ <div id="reviewList"></div>
+</section>
+
+  <p>This is my very first web page. And I'm very excited to make use of whatever I learn well and create more fun things. Right now I am just learning cs things. 
+  So this website could be a little messy. >.<°:•.🐠*.•🪸.•:° </p>
+
+  <p>Want to learn more? Visit my 
+  
+  
+   <a href="https://www.instagram.com/csstuffrat/" id="insta-btn" target="_blank" class="btn">Instagram</a>
+   <a href="https://github.com/Nozomiee" id="git-btn" target="_blank" class="btn">Github</a>
+   <a href="https://discord.gg/v4fjNHAZ" id="discord-btn" target="_blank" class="btn">Discord</a>
+   <audio id="clicksound" src="click.mp3" preload="auto"></audio>
+ </p>
+  <br>
+  
+  <footer>
+  <p>© <span id="year"></span> MICE. Made with love </p>
+</footer>
+<script>
+document.getElementById('year').textContent = new Date().getFullYear();
+</script>
+
+  <div class="wave"></div>
+<svg class="svg-wave" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="myGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#fca3cc;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#b69ef2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <path id="footerWave" d="M0 20 Q 50 0 100 20 T 200 20 T 300 20 T 400 20 V100 H0 Z" fill="url(#myGradient)"></path>
+</svg>
+
+<script>
+let timerInterval;
+let isRunning = false;
+let remainingTime = 25 * 60;
+
+const input = document.getElementById("custom-minutes");
+const display = document.getElementById("timer-display");
+const startBtn = document.getElementById("start-timer");
+const pauseBtn = document.getElementById("pause-timer");
+const resetBtn = document.getElementById("reset-timer");
+const finishSound = document.getElementById("finish-sound");
+
+function updateDisplay() {
+  const minutes = Math.floor(remainingTime / 60);
+  const seconds = remainingTime % 60;
+  display.textContent = `${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+}
+
+function startTimer() {
+  if (isRunning) return;
+  isRunning = true;
+  timerInterval = setInterval(() => {
+    if (remainingTime <= 0) {
+      clearInterval(timerInterval);
+      isRunning = false;
+      display.textContent = "Times Up! ⊹₊⟡⋆";
+      finishSound.play();
+      return;
+    }
+    remainingTime--;
+    updateDisplay();
+  }, 1000);
+}
+
+function pauseTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+}
+
+function resetTimer() {
+  clearInterval(timerInterval);
+  isRunning = false;
+  remainingTime = parseInt(input.value, 10) * 60;
+  updateDisplay();
+}
+
+startBtn.addEventListener("click", () => {
+  animateButton(startBtn);
+  if (!isRunning) {
+    remainingTime = parseInt(input.value, 10) * 60;
+    updateDisplay();
+    startTimer();
+  }
+});
+
+pauseBtn.addEventListener("click", () => {
+  animateButton(pauseBtn);
+  pauseTimer();
+});
+
+resetBtn.addEventListener("click", () => {
+  animateButton(resetBtn);
+  resetTimer();
+});
+
+function animateButton(button) {
+  gsap.fromTo(button,
+    { scale: 1 },
+    { scale: 1.2, duration: 0.2, yoyo: true, repeat: 1, ease: "back.inOut(2)" }
+  );
+}
+
+updateDisplay(); // first render
+</script>
+
+
+<script>
+  $('#footerWave').wavify({
+    height: 80,
+    bones: 4,
+    amplitude: 25,
+    speed: 0.2
+  });
+</script>
+
+
+
+  <script>
+    const darkModeBtn = document.getElementById('darkModeBtn');
+    const darkmode = document.getElementById('darkmode');
+    
+	
+	// Check and apply saved mode
+    if (localStorage.getItem('dark-mode') === 'enabled') {
+      document.body.classList.add('dark-theme');
+    }
+
+    // Toggle dark mode on button click
+    darkModeBtn.addEventListener('click', () => {
+	//rewind and play the sound
+	 darkmode.currentTime = 0; // rewind to start
+     darkmode.play();
+
+      document.body.classList.toggle('dark-theme');
+      if (document.body.classList.contains('dark-theme')) {
+        localStorage.setItem('dark-mode', 'enabled');
+      } else {
+        localStorage.removeItem('dark-mode');
+      }
+    });
+	 </script>
+
+<script>
+gsap.from("#ratme", {
+  duration: 1.2,
+  y: -100,
+  opacity: 0,
+  ease: "bounce.out"
+});
+</script>
+
+<script>
+window.addEventListener("DOMContentLoaded", () => {
+  const sparklesound = document.getElementById("sparklesound");
+  const playBtn = document.getElementById("starBtn");
+  const pauseBtn = document.getElementById("pauseBtn");
+  const stopBtn = document.getElementById("stopBtn");
+
+  function animateButton(button) {
+    gsap.fromTo(button,
+      { scale: 1, rotation: 0 },
+      { scale: 1.3, rotation: 15, duration: 0.3, yoyo: true, repeat: 1, ease: "back.inOut(2)" }
+    );
+  }
+
+  playBtn.addEventListener("click", () => {
+    sparklesound.currentTime = 0;
+    sparklesound.play().catch(e => console.error("Failed to play:", e));
+    animateButton(playBtn);
+  });
+
+  pauseBtn.addEventListener("click", () => {
+    sparklesound.pause();
+    animateButton(pauseBtn);
+  });
+
+  stopBtn.addEventListener("click", () => {
+    sparklesound.pause();
+    sparklesound.currentTime = 0;
+    animateButton(stopBtn);
+  });
+});
+</script>
+
+<script>
+const clicksound = document.getElementById("clicksound");
+
+//instagram btton
+const instabtn = document.getElementById("insta-btn");
+instabtn.addEventListener("click", () =>{
+    clicksound.currentTime = 0; // rewind to start
+    clicksound.play();
+	
+    gsap.fromTo(instabtn,
+	 {scale: 1, rotation: 0},
+	 {scale:1.3, rotation: 1, duration: 0.3, yoyo: true, repeat: 1, ease: "back.inOut(2)"}
+	);
+  });
+  
+
+
+  //githb btton
+  const gitBtn = document.getElementById("git-btn");
+  gitBtn.addEventListener("click", () => {
+    clicksound.currentTime = 0;
+    clicksound.play();
+
+    gsap.fromTo(gitBtn,
+      { scale: 1, rotation: 0 },
+      { scale: 1.3, rotation: -3, duration: 0.3, yoyo: true, repeat: 1, ease: "back.inOut(2)" }
+    );
+  });
+
+
+//discord btton
+  const disBtn = document.getElementById("discord-btn");
+  disBtn.addEventListener("click", () => {
+    clicksound.currentTime = 0;
+    clicksound.play();
+
+    gsap.fromTo(disBtn,
+      { scale: 1, rotation: 0 },
+      { scale: 1.3, rotation: -3, duration: 0.3, yoyo: true, repeat: 1, ease: "back.inOut(2)" }
+    );
+  });
+
+
+  document.getElementById("ratme").addEventListener("click", () => {
+  // 🔊 Play sound
+  clicksound.currentTime = 0;
+  clicksound.play();
+  
+  // create popup
+  const messageBox = document.createElement("div");
+  messageBox.textContent = "Hello we are the focus mice and we are here to motivate you. All the best!" 
+  messageBox.style.position = "fixed";
+  messageBox.style.top = "50%";
+  messageBox.style.left = "50%";
+  messageBox.style.transform = "translate(-50%, -50%)";
+  messageBox.style.background = "#fff8ee";
+  messageBox.style.color = "#333";
+  messageBox.style.padding = "20px 30px";
+  messageBox.style.borderRadius = "16px";
+  messageBox.style.boxShadow = "0 0 20px rgba(0,0,0,0.2)";
+  messageBox.style.fontSize = "1.2rem";
+  messageBox.style.zIndex = 1000;
+  messageBox.style.textAlign = "center";
+  messageBox.style.transition = "opacity 0.3s ease";
+  messageBox.style.maxWidth = "80%";
+
+  const closeBtn = document.createElement("button");
+  closeBtn.textContent = "✿ Okay!";
+  closeBtn.style.marginTop = "12px";
+  closeBtn.style.padding = "8px 16px";
+  closeBtn.style.border = "none";
+  closeBtn.style.borderRadius = "10px";
+  closeBtn.style.background = "#f0a3c3";
+  closeBtn.style.color = "white";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.style.fontFamily = "inherit";
+  closeBtn.style.fontSize = "1rem";
+  closeBtn.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+  closeBtn.onmouseover = () => { closeBtn.style.background = "#e189b2"; };
+  closeBtn.onmouseleave = () => { closeBtn.style.background = "#f0a3c3"; };
+
+  closeBtn.onclick = () => document.body.removeChild(messageBox);
+
+  messageBox.appendChild(document.createElement("br"));
+  messageBox.appendChild(closeBtn);
+
+  document.body.appendChild(messageBox);
+});
+</script>
+
+<script>
+const guideBtn = document.getElementById("guidebtn");
+const guideSound = document.getElementById("guideme");
+
+guideBtn.addEventListener("click", () => {
+  guideSound.currentTime = 0;
+  guideSound.play();
+
+  const guideBox = document.createElement("div");
+  guideBox.innerHTML = `
+    <h5 style="font-size: 1.5rem; margin-top: 0;">📝 Guide</h5>
+<p class="guide-text" style="font-size:1.1rem; line-height: 1.5;">
+  • Click the buttons to ▶️ play, ⏸️ pause, or ⏹️ stop music.<br>
+  • Tap the cute mouse to get a motivation message.<br>
+  • Switch to Night Mode using the 🔮 button.<br>
+  • Click on the Instagram/Github buttons to know more about the developer.<br>
+  • There's a timer given below that can be used to focus for a long time.<br>
+  • Also did you see that froggy??<br>
+  • That review note is adjustable. ˗ˏˋ ꒰ ✉︎ ꒱ ˎˊ˗<br>
+  • Just vibe and study...	   
+</p>
+  `;
+
+  guideBox.style.position = "fixed";
+  guideBox.style.top = "50%";
+  guideBox.style.left = "50%";
+  guideBox.style.transform = "translate(-50%, -50%)";
+  guideBox.style.background = "#fffdf7";
+  guideBox.style.color = "#222";
+  guideBox.style.padding = "25px 30px";
+  guideBox.style.borderRadius = "16px";
+  guideBox.style.boxShadow = "0 0 20px rgba(0,0,0,0.2)";
+  guideBox.style.fontFamily = "inherit";
+  guideBox.style.zIndex = 1000;
+  guideBox.style.maxWidth = "90%";
+  guideBox.style.textAlign = "left";
+
+  const closeGuide = document.createElement("button");
+  closeGuide.textContent = "Got it!";
+  closeGuide.style.marginTop = "16px";
+  closeGuide.style.padding = "8px 18px";
+  closeGuide.style.border = "none";
+  closeGuide.style.borderRadius = "10px";
+  closeGuide.style.background = "#05294a";
+  closeGuide.style.color = "#fff";
+  closeGuide.style.cursor = "pointer";
+  closeGuide.style.fontFamily = "inherit";
+  closeGuide.style.fontSize = "1rem";
+
+  closeGuide.onmouseover = () => closeGuide.style.background = "#041321";
+  closeGuide.onmouseleave = () => closeGuide.style.background = "#05294a";
+
+  closeGuide.onclick = () => document.body.removeChild(guideBox);
+
+  guideBox.appendChild(closeGuide);
+  document.body.appendChild(guideBox);
+});
+</script>
+
+<script>
+document.getElementById("froggy").addEventListener("click", () => {
+  const bubble = document.createElement("div");
+  bubble.textContent = "New Update🗣️: LOAFSKY (No! Absolutely not a pixel game... In progress! 📟) ฅᨐฅ..";
+  bubble.style.position = "fixed";
+  bubble.style.bottom = "110px";
+  bubble.style.right = "30px";
+  bubble.style.padding = "10px 15px";
+  bubble.style.background = "#fff8ee";
+  bubble.style.borderRadius = "16px";
+  bubble.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
+  bubble.style.fontFamily = "inherit";
+  bubble.style.fontSize = "1rem";
+  bubble.style.color = "#333";
+  bubble.style.zIndex = 999;
+  bubble.style.opacity = 0;
+  bubble.style.transition = "opacity 0.30s ease";
+
+  document.body.appendChild(bubble);
+
+  // Fade in
+  setTimeout(() => bubble.style.opacity = 1, 50);
+  // Fade out and remove
+  setTimeout(() => {
+    bubble.style.opacity = 0;
+    setTimeout(() => document.body.removeChild(bubble), 800);
+  }, 5000);
+});
+</script>
+
+<!-- Character Counter Script -->
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const reviewInput = document.getElementById("reviewInput");
+    const charCount = document.getElementById("charCount");
+
+    reviewInput.addEventListener("input", function () {
+      const currentLength = reviewInput.value.length;
+      charCount.textContent = `${currentLength} / 200`;
+      charCount.style.color = currentLength >= 200 ? "red" : "#888";
+    });
+  });
+</script>
+
+<script>
+  // Wait for the DOM to load
+  document.addEventListener("DOMContentLoaded", function () {
+    const input = document.getElementById("custom-minutes");
+    const startButton = document.getElementById("start-timer");
+
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        event.preventDefault(); // prevent default "form submit" behavior
+        startButton.click();    // trigger start
+      }
+    });
+  });
+</script>
+
+
+
+<script type="module" src="script.js"></script>
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>	
+</body>
+</html> 
