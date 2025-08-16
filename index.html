@@ -398,58 +398,27 @@ img.cozy-characters {
   
   <small id="charCount" style="display:block; text-align:right; color:#888;">0 / 200</small>
 
- <div 
-  class="g-recaptcha" 
-  data-sitekey="6LeU_qcrAAAAAC5waTtNJ7LyG7dYaSawAN1gHg8p">
+<div class="g-recaptcha" 
+     data-sitekey="6LeU_qcrAAAAAC5waTtNJ7LyG7dYaSawAN1gHg8p">
 </div>
+
 <button id="googleSignInBtn">Sign in with Google</button>
 <button id="signOutBtn" style="display:none;">Sign Out</button>
 
-<script type="module">
-  // Assuming you imported Firebase and initialized above
-  const googleSignInBtn = document.getElementById('googleSignInBtn');
-  const signOutBtn = document.getElementById('signOutBtn');
-
-  googleSignInBtn.addEventListener('click', signInWithGoogle);
-  signOutBtn.addEventListener('click', () => {
-    signOutUser();
-    // update UI accordingly, e.g., hide signOutBtn, show signInBtn
-  });
-
-  // Optional: Detect auth state changes to update UI
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
-  onAuthStateChanged(auth, user => {
-    if (user) {
-      googleSignInBtn.style.display = 'none';
-      signOutBtn.style.display = 'inline-block';
-      // Enable review posting, display user info, etc.
-    } else {
-      googleSignInBtn.style.display = 'inline-block';
-      signOutBtn.style.display = 'none';
-      // Disable review posting if needed
-    }
-  });
-</script>
-
-
 <button id="submitReview">Submit</button>
+<div id="reviewList"></div>
 
- <div id="reviewList"></div>
-</section>
+<p>This is my very first web page. And I'm very excited to make use of whatever I learn well and create more fun things. Right now I am just learning cs things. 
+So this website could be a little messy. >.<°:•.🐠*.•🪸.•:° </p>
 
-  <p>This is my very first web page. And I'm very excited to make use of whatever I learn well and create more fun things. Right now I am just learning cs things. 
-  So this website could be a little messy. >.<°:•.🐠*.•🪸.•:° </p>
+<p>Want to learn more? Visit my 
+  <a href="https://www.instagram.com/csstuffrat/" id="insta-btn" target="_blank" class="btn">Instagram</a>
+  <a href="https://github.com/Nozomiee" id="git-btn" target="_blank" class="btn">Github</a>
+  <a href="https://discord.gg/v4fjNHAZ" id="discord-btn" target="_blank" class="btn">Discord</a>
+  <audio id="clicksound" src="click.mp3" preload="auto"></audio>
+</p>
+<br>
 
-  <p>Want to learn more? Visit my 
-  
-  
-   <a href="https://www.instagram.com/csstuffrat/" id="insta-btn" target="_blank" class="btn">Instagram</a>
-   <a href="https://github.com/Nozomiee" id="git-btn" target="_blank" class="btn">Github</a>
-   <a href="https://discord.gg/v4fjNHAZ" id="discord-btn" target="_blank" class="btn">Discord</a>
-   <audio id="clicksound" src="click.mp3" preload="auto"></audio>
- </p>
-  <br>
   
   <footer>
   <p>© <span id="year"></span> MICE. Made with love </p>
@@ -838,3 +807,4 @@ document.getElementById("froggy").addEventListener("click", () => {
 </body>
 
 </html> 
+
