@@ -745,7 +745,7 @@ guideBtn.addEventListener("click", () => {
 document.getElementById("froggy").addEventListener("click", () => {
   // Step 1: Froggy's introduction
   const introBubble = document.createElement("div");
-  introBubble.textContent = "Hey there, I'm Mr. Froggy 🐸 Here to keep you company and motivated!";
+  introBubble.textContent = ""Hey there I'm Mr. Froggy. I'm here to make sure you lock in well.. A message for you~"";
   introBubble.style.position = "fixed";
   introBubble.style.bottom = "110px";
   introBubble.style.right = "30px";
@@ -763,7 +763,7 @@ document.getElementById("froggy").addEventListener("click", () => {
   document.body.appendChild(introBubble);
   setTimeout(() => introBubble.style.opacity = 1, 50);
 
-  // Step 2: Replace intro with hidden cards
+  // Step 2: Replace intro with 6 cards
   setTimeout(() => {
     introBubble.style.opacity = 0;
     setTimeout(() => document.body.removeChild(introBubble), 800);
@@ -782,10 +782,11 @@ document.getElementById("froggy").addEventListener("click", () => {
     cardPopup.style.zIndex = 999;
     cardPopup.style.opacity = 0;
     cardPopup.style.transition = "opacity 0.30s ease";
-    cardPopup.style.display = "flex";
+    cardPopup.style.display = "grid";
+    cardPopup.style.gridTemplateColumns = "repeat(2, 1fr)";
     cardPopup.style.gap = "10px";
 
-    // Messages pool
+    // Messages (1 per card)
     const frogMessages = [
       "You've got this! Yess you're gonna ace it!✊️🪷✨️",
       "Every single day is a chance to try again. 🌟🤍🌺",
@@ -793,33 +794,32 @@ document.getElementById("froggy").addEventListener("click", () => {
       "It may take time but things get better. 🍀🦑🪸",
       "Rooting for you!! Yaee!🫂💗🌟",
       "Failing is not the opposite of success, but instead just small piece of it's process. 🪐🌻🥮" 
-
     ];
 
-    // Create 3 mystery cards
-    for (let i = 0; i < 3; i++) {
+    // Create 6 cards (each tied to its own message)
+    frogMessages.forEach(msg => {
       const card = document.createElement("div");
       card.textContent = "💌 Tap me!";
-      card.style.padding = "10px 15px";
+      card.style.padding = "12px";
       card.style.background = "#fff";
       card.style.borderRadius = "12px";
       card.style.cursor = "pointer";
-      card.style.flex = "1";
       card.style.textAlign = "center";
       card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+      card.style.transition = "all 0.3s ease";
+
       card.onclick = () => {
-        const randomMsg = frogMessages[Math.floor(Math.random() * frogMessages.length)];
-        card.textContent = randomMsg; // Reveal message inside card
-        // Optionally disable further clicks
-        card.style.pointerEvents = "none";
+        card.textContent = msg; // Reveal its unique message
         card.style.background = "#fdf5e6";
+        card.style.pointerEvents = "none"; // prevent retap
       };
+
       cardPopup.appendChild(card);
-    }
+    });
 
     document.body.appendChild(cardPopup);
     setTimeout(() => cardPopup.style.opacity = 1, 50);
-  }, 4000); // 4s delay for intro
+  }, 4000); // delay for intro
 });
 </script>
 <!-- Character Counter Script -->
