@@ -743,31 +743,79 @@ guideBtn.addEventListener("click", () => {
 
 <script>
 document.getElementById("froggy").addEventListener("click", () => {
-  const bubble = document.createElement("div");
-  bubble.textContent = "New Update🗣️: LOAFSKY (No! Absolutely not a pixel game... In progress! 📟) ฅᨐฅ..";
-  bubble.style.position = "fixed";
-  bubble.style.bottom = "110px";
-  bubble.style.right = "30px";
-  bubble.style.padding = "10px 15px";
-  bubble.style.background = "#fff8ee";
-  bubble.style.borderRadius = "16px";
-  bubble.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
-  bubble.style.fontFamily = "inherit";
-  bubble.style.fontSize = "1rem";
-  bubble.style.color = "#333";
-  bubble.style.zIndex = 999;
-  bubble.style.opacity = 0;
-  bubble.style.transition = "opacity 0.30s ease";
+  // Step 1: Show Froggy's introduction
+  const introBubble = document.createElement("div");
+  introBubble.textContent = "Hey there, I'm Mr. Froggy. I'm here to make sure you lock-in well and don't get bored in the process too soon.";
+  introBubble.style.position = "fixed";
+  introBubble.style.bottom = "110px";
+  introBubble.style.right = "30px";
+  introBubble.style.padding = "10px 15px";
+  introBubble.style.background = "#fff8ee";
+  introBubble.style.borderRadius = "16px";
+  introBubble.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
+  introBubble.style.fontFamily = "inherit";
+  introBubble.style.fontSize = "1rem";
+  introBubble.style.color = "#333";
+  introBubble.style.zIndex = 999;
+  introBubble.style.opacity = 0;
+  introBubble.style.transition = "opacity 0.30s ease";
 
-  document.body.appendChild(bubble);
+  document.body.appendChild(introBubble);
+  setTimeout(() => introBubble.style.opacity = 1, 50);
 
-  // Fade in
-  setTimeout(() => bubble.style.opacity = 1, 50);
-  // Fade out and remove
+  // Step 2: After intro fades, show choices
   setTimeout(() => {
-    bubble.style.opacity = 0;
-    setTimeout(() => document.body.removeChild(bubble), 800);
-  }, 5000);
+    introBubble.style.opacity = 0;
+    setTimeout(() => document.body.removeChild(introBubble), 800);
+
+    const choiceBubble = document.createElement("div");
+    choiceBubble.style.position = "fixed";
+    choiceBubble.style.bottom = "110px";
+    choiceBubble.style.right = "30px";
+    choiceBubble.style.padding = "15px";
+    choiceBubble.style.background = "#e7fff0";
+    choiceBubble.style.borderRadius = "16px";
+    choiceBubble.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
+    choiceBubble.style.fontFamily = "inherit";
+    choiceBubble.style.fontSize = "1rem";
+    choiceBubble.style.color = "#333";
+    choiceBubble.style.zIndex = 999;
+    choiceBubble.style.opacity = 0;
+    choiceBubble.style.transition = "opacity 0.30s ease";
+
+    // Messages to choose from
+    const frogMessages = [
+      "You've got this! Yess you're gonna ace it!✊️🪷✨️",
+      "Every single day is a chance to try again. 🌟🤍🌺",
+      "Slow progress is still progess. Cherish it and earn more! 🌉🐡🌟 ",
+      "It may take time but things get better. 🍀🦑🪸",
+      "Rooting for you!! Yaee!🫂💗🌟",
+      "Failing is not the opposite of success, but instead just small piece of it's process. 🪐🌻🥮" 
+
+    ];
+
+    // Add buttons for each message
+    frogMessages.forEach(msg => {
+      const btn = document.createElement("button");
+      btn.textContent = msg;
+      btn.style.display = "block";
+      btn.style.margin = "5px 0";
+      btn.style.padding = "6px 10px";
+      btn.style.border = "none";
+      btn.style.borderRadius = "8px";
+      btn.style.background = "#fff";
+      btn.style.cursor = "pointer";
+      btn.style.fontFamily = "inherit";
+      btn.onclick = () => {
+        alert(msg); // you can replace this with another styled bubble if you prefer
+        document.body.removeChild(choiceBubble);
+      };
+      choiceBubble.appendChild(btn);
+    });
+
+    document.body.appendChild(choiceBubble);
+    setTimeout(() => choiceBubble.style.opacity = 1, 50);
+  }, 5000); // after intro bubble duration
 });
 </script>
 
