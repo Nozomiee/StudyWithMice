@@ -743,9 +743,9 @@ guideBtn.addEventListener("click", () => {
 
 <script>
 document.getElementById("froggy").addEventListener("click", () => {
-  // Step 1: Show Froggy's introduction
+  // Step 1: Froggy's introduction
   const introBubble = document.createElement("div");
-  introBubble.textContent = "Hey there, I'm Mr. Froggy. I'm here to make sure you lock-in well and don't get bored in the process too soon.";
+  introBubble.textContent = "Hey there, I'm Mr. Froggy 🐸 Here to keep you company and motivated!";
   introBubble.style.position = "fixed";
   introBubble.style.bottom = "110px";
   introBubble.style.right = "30px";
@@ -763,27 +763,29 @@ document.getElementById("froggy").addEventListener("click", () => {
   document.body.appendChild(introBubble);
   setTimeout(() => introBubble.style.opacity = 1, 50);
 
-  // Step 2: After intro fades, show choices
+  // Step 2: Replace intro with hidden cards
   setTimeout(() => {
     introBubble.style.opacity = 0;
     setTimeout(() => document.body.removeChild(introBubble), 800);
 
-    const choiceBubble = document.createElement("div");
-    choiceBubble.style.position = "fixed";
-    choiceBubble.style.bottom = "110px";
-    choiceBubble.style.right = "30px";
-    choiceBubble.style.padding = "15px";
-    choiceBubble.style.background = "#e7fff0";
-    choiceBubble.style.borderRadius = "16px";
-    choiceBubble.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
-    choiceBubble.style.fontFamily = "inherit";
-    choiceBubble.style.fontSize = "1rem";
-    choiceBubble.style.color = "#333";
-    choiceBubble.style.zIndex = 999;
-    choiceBubble.style.opacity = 0;
-    choiceBubble.style.transition = "opacity 0.30s ease";
+    const cardPopup = document.createElement("div");
+    cardPopup.style.position = "fixed";
+    cardPopup.style.bottom = "110px";
+    cardPopup.style.right = "30px";
+    cardPopup.style.padding = "15px";
+    cardPopup.style.background = "#e7fff0";
+    cardPopup.style.borderRadius = "16px";
+    cardPopup.style.boxShadow = "0 0 12px rgba(0,0,0,0.1)";
+    cardPopup.style.fontFamily = "inherit";
+    cardPopup.style.fontSize = "1rem";
+    cardPopup.style.color = "#333";
+    cardPopup.style.zIndex = 999;
+    cardPopup.style.opacity = 0;
+    cardPopup.style.transition = "opacity 0.30s ease";
+    cardPopup.style.display = "flex";
+    cardPopup.style.gap = "10px";
 
-    // Messages to choose from
+    // Messages pool
     const frogMessages = [
       "You've got this! Yess you're gonna ace it!✊️🪷✨️",
       "Every single day is a chance to try again. 🌟🤍🌺",
@@ -794,31 +796,32 @@ document.getElementById("froggy").addEventListener("click", () => {
 
     ];
 
-    // Add buttons for each message
-    frogMessages.forEach(msg => {
-      const btn = document.createElement("button");
-      btn.textContent = msg;
-      btn.style.display = "block";
-      btn.style.margin = "5px 0";
-      btn.style.padding = "6px 10px";
-      btn.style.border = "none";
-      btn.style.borderRadius = "8px";
-      btn.style.background = "#fff";
-      btn.style.cursor = "pointer";
-      btn.style.fontFamily = "inherit";
-      btn.onclick = () => {
-        alert(msg); // you can replace this with another styled bubble if you prefer
-        document.body.removeChild(choiceBubble);
+    // Create 3 mystery cards
+    for (let i = 0; i < 3; i++) {
+      const card = document.createElement("div");
+      card.textContent = "💌 Tap me!";
+      card.style.padding = "10px 15px";
+      card.style.background = "#fff";
+      card.style.borderRadius = "12px";
+      card.style.cursor = "pointer";
+      card.style.flex = "1";
+      card.style.textAlign = "center";
+      card.style.boxShadow = "0 2px 6px rgba(0,0,0,0.1)";
+      card.onclick = () => {
+        const randomMsg = frogMessages[Math.floor(Math.random() * frogMessages.length)];
+        card.textContent = randomMsg; // Reveal message inside card
+        // Optionally disable further clicks
+        card.style.pointerEvents = "none";
+        card.style.background = "#fdf5e6";
       };
-      choiceBubble.appendChild(btn);
-    });
+      cardPopup.appendChild(card);
+    }
 
-    document.body.appendChild(choiceBubble);
-    setTimeout(() => choiceBubble.style.opacity = 1, 50);
-  }, 5000); // after intro bubble duration
+    document.body.appendChild(cardPopup);
+    setTimeout(() => cardPopup.style.opacity = 1, 50);
+  }, 4000); // 4s delay for intro
 });
 </script>
-
 <!-- Character Counter Script -->
 <script>
   document.addEventListener("DOMContentLoaded", function () {
