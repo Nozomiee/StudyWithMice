@@ -758,16 +758,19 @@ document.getElementById("froggy").addEventListener("click", () => {
   introBubble.style.color = "#333";
   introBubble.style.zIndex = 999;
   introBubble.style.opacity = 0;
-  introBubble.style.transition = "opacity 0.30s ease";
+  introBubble.style.transition = "opacity 0.3s ease";
 
   document.body.appendChild(introBubble);
   setTimeout(() => introBubble.style.opacity = 1, 50);
 
-  // Step 2: Replace intro with 6 cards
+  // Auto-hide intro after 3 seconds
   setTimeout(() => {
     introBubble.style.opacity = 0;
-    setTimeout(() => document.body.removeChild(introBubble), 800);
+    setTimeout(() => document.body.removeChild(introBubble), 400);
+  }, 3000);
 
+  // Step 2: Replace intro with 6 cards after intro disappears
+  setTimeout(() => {
     const cardPopup = document.createElement("div");
     cardPopup.style.position = "fixed";
     cardPopup.style.bottom = "110px";
@@ -781,12 +784,11 @@ document.getElementById("froggy").addEventListener("click", () => {
     cardPopup.style.color = "#333";
     cardPopup.style.zIndex = 999;
     cardPopup.style.opacity = 0;
-    cardPopup.style.transition = "opacity 0.30s ease";
+    cardPopup.style.transition = "opacity 0.3s ease";
     cardPopup.style.display = "grid";
     cardPopup.style.gridTemplateColumns = "repeat(2, 1fr)";
     cardPopup.style.gap = "10px";
 
-    // Messages (1 per card)
     const frogMessages = [
       "You've got this! Yess you're gonna ace it!✊️🪷✨️",
       "Every single day is a chance to try again. 🌟🤍🌺",
@@ -796,7 +798,6 @@ document.getElementById("froggy").addEventListener("click", () => {
       "Failing is not the opposite of success, but instead just small piece of it's process. 🪐🌻🥮" 
     ];
 
-    // Create 6 cards (each tied to its own message)
     frogMessages.forEach(msg => {
       const card = document.createElement("div");
       card.textContent = "💌 Tap me!";
@@ -809,9 +810,15 @@ document.getElementById("froggy").addEventListener("click", () => {
       card.style.transition = "all 0.3s ease";
 
       card.onclick = () => {
-        card.textContent = msg; // Reveal its unique message
+        card.textContent = msg;
         card.style.background = "#fdf5e6";
-        card.style.pointerEvents = "none"; // prevent retap
+        card.style.pointerEvents = "none";
+
+        // Auto-hide card after 4 seconds
+        setTimeout(() => {
+          card.style.opacity = 0;
+          setTimeout(() => card.remove(), 300);
+        }, 4000);
       };
 
       cardPopup.appendChild(card);
@@ -819,7 +826,14 @@ document.getElementById("froggy").addEventListener("click", () => {
 
     document.body.appendChild(cardPopup);
     setTimeout(() => cardPopup.style.opacity = 1, 50);
-  }, 4000); // delay for intro
+
+    // Optional: auto-hide the entire cardPopup after 10 seconds
+    setTimeout(() => {
+      cardPopup.style.opacity = 0;
+      setTimeout(() => document.body.removeChild(cardPopup), 400);
+    }, 10000);
+
+  }, 3500); // after intro fades
 });
 </script>
 
