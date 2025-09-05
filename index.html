@@ -763,11 +763,11 @@ document.getElementById("froggy").addEventListener("click", () => {
   document.body.appendChild(introBubble);
   setTimeout(() => introBubble.style.opacity = 1, 50);
 
-  // Auto-hide intro after 3 seconds
+  // Auto-hide intro after 7 seconds
   setTimeout(() => {
     introBubble.style.opacity = 0;
     setTimeout(() => document.body.removeChild(introBubble), 400);
-  }, 3000);
+  }, 7000);
 
   // Step 2: Replace intro with 6 cards after intro disappears
   setTimeout(() => {
@@ -814,11 +814,11 @@ document.getElementById("froggy").addEventListener("click", () => {
         card.style.background = "#fdf5e6";
         card.style.pointerEvents = "none";
 
-        // Auto-hide card after 4 seconds
+        // Auto-hide card 
         setTimeout(() => {
           card.style.opacity = 0;
           setTimeout(() => card.remove(), 300);
-        }, 4000);
+        }, 7400);
       };
 
       cardPopup.appendChild(card);
@@ -827,13 +827,13 @@ document.getElementById("froggy").addEventListener("click", () => {
     document.body.appendChild(cardPopup);
     setTimeout(() => cardPopup.style.opacity = 1, 50);
 
-    // Optional: auto-hide the entire cardPopup after 10 seconds
-    setTimeout(() => {
+    // Optional: auto-hide the entire cardPopup after 8s
+   setTimeout(() => {
       cardPopup.style.opacity = 0;
       setTimeout(() => document.body.removeChild(cardPopup), 400);
-    }, 10000);
+    }, 8000);
 
-  }, 3500); // after intro fades
+  }, 11000); // after intro fades
 });
 </script>
 
