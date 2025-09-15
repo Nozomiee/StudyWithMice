@@ -1,14 +1,23 @@
 import firebaseConfig from './firebase-config.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signInWithRedirect, getRedirectResult, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import Filter from 'https://cdn.skypack.dev/bad-words@3.0.4';
 
 // ✅ Initialize Firebase globally
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 const auth = getAuth(app);
+
+// Make Firebase use the device/browser language
+auth.useDeviceLanguage();
+
+// ✅ Configure Google provider
 const provider = new GoogleAuthProvider();
+provider.setCustomParameters({
+  prompt: "select_account",        // always show account chooser
+  redirect_uri: window.location.origin // ensure GitHub Pages origin is used
+});
 
 // ✅ DOM Elements
 const reviewInput = document.getElementById("reviewInput");
@@ -20,7 +29,6 @@ const signOutBtn = document.getElementById('signOutBtn');
 
 // ✅ Profanity Filter
 const filter = new Filter();
-console.log(filter.isProfane("bitch, damn, shit"));
 
 // Character Counter
 reviewInput.addEventListener("input", () => {
@@ -75,30 +83,46 @@ onValue(ref(db, 'reviews'), (snapshot) => {
   });
 });
 
-// ✅ Google Sign-In
+// ✅ Google Sign-In (Popup → Redirect fallback)
 googleSignInBtn.addEventListener('click', async () => {
   try {
-    console.log(window.location.origin);
+    console.log("Origin:", window.location.origin);
     const result = await signInWithPopup(auth, provider);
 
-    // Log the entire result for debugging
     console.log("Full sign-in result:", result);
-
-    if (!result.user) {
-      throw new Error("No user object returned from Google Sign-In");
+    if (result.user) {
+      alert(`Welcome ${result.user.displayName || "User"}!`);
     }
-
-    console.log("Google user signed in:", result.user);
-    alert(`Welcome ${result.user.displayName || "User"}!`);
   } catch (error) {
     console.error("Google Sign-In error details:", {
       code: error.code,
       message: error.message,
       customData: error.customData
     });
-    alert(`Error: ${error.message} (Code: ${error.code})`);
+
+    // If popup blocked or invalid redirect, fallback to redirect method
+    if (error.code === "auth/popup-blocked" || error.code === "auth/popup-closed-by-user") {
+      console.log("Falling back to redirect sign-in...");
+      await signInWithRedirect(auth, provider);
+    } else {
+      alert(`Error: ${error.message} (Code: ${error.code})`);
+    }
   }
 });
+
+// ✅ Handle redirect results (if fallback was used)
+getRedirectResult(auth)
+  .then((result) => {
+    if (result && result.user) {
+      console.log("Redirect sign-in result:", result);
+      alert(`Welcome ${result.user.displayName || "User"}!`);
+    }
+  })
+  .catch((error) => {
+    if (error) {
+      console.error("Redirect sign-in error:", error);
+    }
+  });
 
 // ✅ Google Sign-Out
 signOutBtn.addEventListener('click', () => {
@@ -115,3 +139,4 @@ onAuthStateChanged(auth, user => {
     signOutBtn.style.display = 'none';
   }
 });
+
